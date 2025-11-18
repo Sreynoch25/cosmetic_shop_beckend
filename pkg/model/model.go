@@ -5,38 +5,40 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/tarantool/go-tarantool/v2/decimal"
-	_ "github.com/tarantool/go-tarantool/v2/uuid"
+	"github.com/shopspring/decimal"
 )
 
-type PlayerContext struct {
-	Id           float64
-	PlayerUuid   string
+type UserContext struct {
+	Id           int
+	UserUuid     string
 	UserName     string
 	LoginSession string
 	Exp          time.Time
 	UserAgent    string
 	Ip           string
-	MembershipId float64
-	StatusId     float64
-	TokenVersion float64
+	StatusId     int
 }
+
 type Paging struct {
 	Page    int `json:"page" query:"page" validate:"required,min=1"`
 	Perpage int `json:"per_page" query:"per_page" validate:"required,min=1"`
 }
+
 type Sort struct {
 	Property  string `json:"property" validate:"required"`
 	Direction string `json:"direction" validate:"required,oneof=asc desc"`
 }
+
 type Filter struct {
 	Property string      `json:"property" validate:"required"`
+	Operator string      `json:"operator" validate:"required"`
 	Value    interface{} `json:"value" validate:"required"`
 }
 
 type FieldUuid struct {
 	Uuid uuid.UUID `json:"id"`
 }
+
 type FieldId struct {
 	Id uint64 `json:"id"`
 }
